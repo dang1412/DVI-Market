@@ -23,7 +23,8 @@ const _cache: {[id: number]: ItemInfo | null} = {}
 
 export async function getItemInfo(id: number): Promise<ItemInfo | null> {
   if (_cache[id] === undefined) {
-    const url = `https://www.multiverse.so/m/api/search_bep_721?token_id=${id}`
+    // const url = `https://www.multiverse.so/m/api/search_bep_721?token_id=${id}`
+    const url = `https://www.multiverse.so/m/api/search_pol_land?token_id=${id}`
     const data = await fetch(url)
     const { attributes: attrs, image } = await data.json()
     try {

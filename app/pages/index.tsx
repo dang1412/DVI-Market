@@ -1,13 +1,23 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
-import { LandSaleCard } from '../components'
+import { useContext, useEffect, useState } from 'react'
+
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import { FaArrowLeft, FaArrowRight, FaSortUp, FaSortDown } from 'react-icons/fa'
+
+import { LandSaleCard, MarketContext, CardStatus } from '../components'
 
 import { getMetaSigner, getSellItems, SaleItem } from '../data'
 
 import styles from '../styles/Home.module.css'
 
 const numberPerPage = 15
+const items: {[id: number]: CardStatus} = {}
+
+function getItemStatus(id: number): CardStatus {
+  return items[id] || CardStatus.Selling
+}
 
 const Home: NextPage = () => {
   const [allLands, setAllLands] = useState<SaleItem[]>([])
@@ -15,6 +25,12 @@ const Home: NextPage = () => {
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(0)
   const [acc, setAcc] = useState('')
+
+  const state = useContext(MarketContext)
+  items[state.tokenId] = CardStatus.Sold
+  if (state.to === acc) {
+    items[state.tokenId] = CardStatus.Owned  // owned item
+  }
 
   const load = () => {
     (async () => {
@@ -55,17 +71,21 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <button onClick={load}>Load</button>
-      <button onClick={() => setPage(page - 1)}>prev</button>
-      <button onClick={() => setPage(page + 1)}>next</button>
+      <Button variant='outlined' onClick={load}>Load</Button>
+      <IconButton onClick={() => setPage(page - 1)} color="primary">
+        <FaArrowLeft/>
+      </IconButton>
+      <IconButton onClick={() => setPage(page + 1)} color="primary">
+        <FaArrowRight/>
+      </IconButton>
       <span>{page}</span>
-      <button onClick={sortPriceInc}>Price Up</button>
-      <button onClick={sortPriceDec}>Price Down</button>
+      <IconButton onClick={sortPriceInc}><FaSortUp/></IconButton>
+      <IconButton onClick={sortPriceDec}><FaSortDown/></IconButton>
       {acc}
 
       <div style={{display: 'flex', flexWrap: 'wrap'}}>
       {lands.map(land => (
-        <LandSaleCard land={land} key={land.id} />
+        <LandSaleCard token={land} key={land.id} paused={state.paused} status={getItemStatus(land.id)} />
       ))}
       </div>
     </div>

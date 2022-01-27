@@ -7,12 +7,16 @@ import { getItemInfo, getMetaProvider, getMetaSigner } from './utils'
 // const marketAddress = '0xf36721581b3db68408a7189840c79ad47c719c71'
 
 // local
-// const dvi721Address = '0x5FbDB2315678afecb367f032d93F642f64180aa3'
-// const marketAddress = '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0'
+const dvi721Address = '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+const marketAddress = '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0'
 
 // mumbai testnet
-const dvi721Address = '0xa8a9ff7e1597f00988ab643a95c07cc9d80fd979'
-const marketAddress = '0xbd68B0A248028A4aAE60390DEB1AcD16684EB941'
+// const dvi721Address = '0xa8a9ff7e1597f00988ab643a95c07cc9d80fd979'
+// const marketAddress = '0xbd68B0A248028A4aAE60390DEB1AcD16684EB941'
+
+// polygon mainnet
+// const dvi721Address = '0x8b72734cc8a28410073bde934f7f0ff9df9eaf55'
+// const marketAddress = ''
 
 let _dvi721Contract: Dvision721Dvi | null = null
 let _dviMarketContract: DvisionMarket | null = null
