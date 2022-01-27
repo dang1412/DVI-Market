@@ -21,10 +21,12 @@ export async function getMetaSigner(): Promise<providers.JsonRpcSigner> {
 
 const _cache: {[id: number]: ItemInfo | null} = {}
 
+export const baseUri = 'https://www.multiverse.so/m/api/search_pol_land?token_id='
+
 export async function getItemInfo(id: number): Promise<ItemInfo | null> {
   if (_cache[id] === undefined) {
     // const url = `https://www.multiverse.so/m/api/search_bep_721?token_id=${id}`
-    const url = `https://www.multiverse.so/m/api/search_pol_land?token_id=${id}`
+    const url = `${baseUri}${id}`
     const data = await fetch(url)
     const { attributes: attrs, image } = await data.json()
     try {

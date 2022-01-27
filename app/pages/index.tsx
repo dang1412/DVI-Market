@@ -8,7 +8,7 @@ import { FaArrowLeft, FaArrowRight, FaSortUp, FaSortDown } from 'react-icons/fa'
 
 import { LandSaleCard, MarketContext, CardStatus } from '../components'
 
-import { getMetaSigner, getSellItems, SaleItem } from '../data'
+import { categorizeItems, getMetaSigner, getPreciousItems, getSellItems, SaleItem } from '../data'
 
 import styles from '../styles/Home.module.css'
 
@@ -34,10 +34,13 @@ const Home: NextPage = () => {
 
   const load = () => {
     (async () => {
-      const _lands = await getSellItems()
+      // const _lands = await getSellItems()
+      const _lands = await getPreciousItems()
       setTotal(_lands.length)
       setAllLands(_lands)
       setPage(1)
+      // await getPreciousItems()
+      // await categorizeItems()
     })()
   }
 
