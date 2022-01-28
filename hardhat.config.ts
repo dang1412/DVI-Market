@@ -39,9 +39,15 @@ const config: HardhatUserConfig = {
     // },
     localhost: {
       // chainId: 1337,
+      // gas
     },
     hardhat: {
       allowUnlimitedContractSize: true
+    },
+    main: {
+      url: "https://polygon-rpc.com",
+      chainId: 137,
+      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : []
     }
   },
   gasReporter: {
