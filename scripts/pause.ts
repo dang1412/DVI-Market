@@ -13,11 +13,11 @@ async function main() {
   const dvisionMarket = await ethers.getContractAt('DvisionMarket', marketAddress)
 
   // const DEFAULT_ROLE = '0x0000000000000000000000000000000000000000000000000000000000000000'
-  // const MANAGER_ROLE = '0x241ecf16d79d0f8dbfb92cbc07fe17840425976cf0667f022fe9877caa831b08'
+  const MANAGER_ROLE = '0x241ecf16d79d0f8dbfb92cbc07fe17840425976cf0667f022fe9877caa831b08'
   // console.log(await dvisionMarket.getRoleMember(DEFAULT_ROLE, 0))
   // console.log(await dvisionMarket.getRoleAdmin(DEFAULT_ROLE))
 
-  // await dvisionMarket.grantRole(MANAGER_ROLE, '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266')
+  await dvisionMarket.grantRole(MANAGER_ROLE, '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266')
 
   await dvisionMarket.unpauseMarket()
   // await dvisionMarket.pauseMarket()

@@ -13,6 +13,7 @@ async function main() {
   // If this script is run directly using `node` you may want to call compile
   // manually to make sure everything is compiled
   // await hre.run('compile');
+  const [signer1, signer2, signer3] = await ethers.getSigners()
 
   // We get the contract to deploy
   // Dvision721Dvi
@@ -33,7 +34,7 @@ async function main() {
   await dvisionMarket.deployed()
   console.log("DvisionMarket deployed to:", dvisionMarket.address)
 
-  await dvision721Dvi.batchMint(100)
+  await dvision721Dvi.connect(signer2).batchMint(100)
 
   const prices: BigNumberish[] = []
   const tokenIds: number[] = []
@@ -41,7 +42,7 @@ async function main() {
     prices.push(BigNumber.from(1e18.toString()))
     tokenIds.push(i + 1)
   }
-  await dvision721Dvi.batchSellItem(dvisionMarket.address, tokenIds, prices, 0)
+  await dvision721Dvi.connect(signer2).batchSellItem(dvisionMarket.address, tokenIds, prices, 0)
 
   console.log(await dvision721Dvi.totalSupply())
 }
